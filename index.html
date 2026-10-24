@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0f1923">
+<meta name="description" content="无畏契约 莲花古城 皮肤体验 —— 暴徒(AK)与幻影(M4)全皮肤、打BOT、适配手游">
+<title>无畏契约 · 莲花古城 皮肤体验</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/collection.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ===================== 加载 ===================== -->
+  <div id="loading" class="screen">
+    <div class="load-box">
+      <div class="load-logo">VALORANT</div>
+      <div class="load-sub">莲花古城 · 皮肤体验</div>
+      <div class="load-bar"><i id="loadbar"></i></div>
+      <div class="load-tip" id="loadtip">正在载入皮肤数据…</div>
+    </div>
+  </div>
+
+  <!-- ===================== 主菜单 ===================== -->
+  <div id="menu" class="screen hidden">
+    <div class="menu-bg"></div>
+    <div class="menu-inner">
+      <div class="brand">
+        <h1>无畏契约 <span>·</span> 皮肤体验</h1>
+        <div class="map-name">莲 花 古 城 &nbsp;/&nbsp; LOTUS</div>
+      </div>
+
+      <div class="menu-grid">
+        <div class="panel">
+          <div class="panel-title">选择武器</div>
+          <div class="weapon-row">
+            <div class="wcard active" data-wpn="vandal">
+              <img class="wimg" id="wimg-vandal" alt="暴徒">
+              <div class="wname">暴徒 <span style="color:#8b979e;font-weight:400">VANDAL · AK</span></div>
+              <div class="wsub" id="wsub-vandal">25 发 / 9.75 发每秒</div>
+              <div class="skin-name" id="skn-vandal">—</div>
+            </div>
+            <div class="wcard" data-wpn="phantom">
+              <img class="wimg" id="wimg-phantom" alt="幻影">
+              <div class="wname">幻影 <span style="color:#8b979e;font-weight:400">PHANTOM · M4</span></div>
+              <div class="wsub" id="wsub-phantom">30 发 / 11 发每秒</div>
+              <div class="skin-name" id="skn-phantom">—</div>
+            </div>
+          </div>
+
+          <div class="panel-title" style="margin-top:14px">游戏模式</div>
+          <div class="mode-row">
+            <div class="mcard active" data-mode="range">
+              <h4>🎯 靶场练枪</h4>
+              <p>BOT 静止不动，随便试枪试皮。无限时间，记录命中率与爆头率。</p>
+            </div>
+            <div class="mcard" data-mode="dm">
+              <h4>💀 莲花古城 死斗</h4>
+              <p>BOT 会巡逻、会开枪。清空三个包点，挑战最长连杀。</p>
+            </div>
+          </div>
+
+          <div class="stat-strip">
+            <div class="s"><b id="m-stat-kills">0</b><span>历史击杀</span></div>
+            <div class="s"><b id="m-stat-hs">0%</b><span>爆头率</span></div>
+            <div class="s"><b id="m-stat-skins">209</b><span>可用枪皮</span></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">当前配装</div>
+          <div style="display:flex;align-items:center;justify-content:center;height:96px">
+            <img id="menu-gun" style="max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(0,0,0,.7))" alt="">
+          </div>
+          <div style="text-align:center">
+            <div id="menu-skin-name" style="font-weight:800;letter-spacing:.08em">默认 · 暴徒</div>
+            <div id="menu-skin-cn" style="font-size:12px;color:#f0c674;margin-top:3px">—</div>
+            <div id="menu-skin-tier" style="font-size:11px;color:#8b979e;margin-top:4px">—</div>
+          </div>
+          <div class="hr"></div>
+          <div class="kv"><span>弹匣</span><b id="menu-mag">25</b></div>
+          <div class="kv"><span>射速</span><b id="menu-rate">9.75 / 秒</b></div>
+          <div class="kv"><span>换弹</span><b id="menu-reload">2.5 秒</b></div>
+          <div class="kv"><span>价格</span><b id="menu-cost">2900</b></div>
+          <div class="hr"></div>
+          <div style="font-size:11.5px;color:#8b979e;line-height:1.6">
+            手游操作：左手摇杆移动，右手滑动转视角，按住开火键连射。<br>
+            电脑操作：WASD 移动，鼠标转视角，左键开火，R 换弹，1/2 换枪。
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-actions">
+        <button class="btn primary" id="btnStart">开始游戏</button>
+        <button class="btn" id="btnCollection">藏品库</button>
+        <button class="btn ghost" id="btnSettings">设置</button>
+      </div>
+      <div class="menu-foot">
+        <span>数据来源 valorant-api.com · 仅供学习交流，非官方作品</span>
+        <span id="menu-ver">v1.0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 藏品库 ===================== -->
+  <div id="collection" class="screen hidden">
+    <div class="col-head">
+      <div class="col-title">藏品<em>库</em></div>
+      <div class="tabs">
+        <div class="tab active" data-wpn="vandal">暴徒 AK</div>
+        <div class="tab" data-wpn="phantom">幻影 M4</div>
+      </div>
+      <div class="col-search">
+        <span style="color:#8b979e">🔍</span>
+        <input id="search" type="search" placeholder="搜索皮肤 / 中文名 / 系列…" autocomplete="off">
+        <span class="clr" id="searchClr">✕</span>
+      </div>
+      <button class="btn small" id="colBack">返回</button>
+    </div>
+
+    <div class="col-body">
+      <div class="col-side">
+        <div class="side-block">
+          <h4>收藏统计</h4>
+          <div class="side-stat"><span>当前武器皮肤</span><b id="side-total">0</b></div>
+          <div class="side-stat"><span>已收藏</span><b id="side-fav">0</b></div>
+          <div class="side-stat"><span>配色变体</span><b id="side-variants">0</b></div>
+        </div>
+        <div class="side-block">
+          <h4>品质</h4>
+          <div class="legend" id="tier-legend"></div>
+        </div>
+        <div class="side-block">
+          <h4>说明</h4>
+          <div style="font-size:11.5px;color:#8b979e;line-height:1.7">
+            点卡片查看详情，选择配色变体，「装备」即可在游戏中使用。<br>
+            右上角 ★ 收藏，收藏的皮肤会排在前面。<br>
+            游戏内每次击杀也会自动播放当前皮肤的击杀播报。
+          </div>
+        </div>
+      </div>
+
+      <div class="col-main">
+        <div class="col-filters" id="filters">
+          <button class="fbtn on" data-f="all">全部</button>
+          <button class="fbtn" data-f="fav">★ 收藏</button>
+          <button class="fbtn" data-f="Ultra">究极</button>
+          <button class="fbtn" data-f="Exclusive">尊贵</button>
+          <button class="fbtn" data-f="Premium">高级</button>
+          <button class="fbtn" data-f="Deluxe">豪华</button>
+          <button class="fbtn" data-f="Select">精选</button>
+          <button class="fbtn" data-f="variants">有变体</button>
+          <button class="fbtn" id="randomSkin">🎲 随机装备</button>
+        </div>
+        <div class="grid" id="grid"></div>
+      </div>
+    </div>
+
+    <!-- 皮肤详情 -->
+    <div class="detail hidden" id="detail">
+      <button class="btn small detail-close" id="detailClose">✕ 关闭</button>
+      <div class="detail-hero">
+        <div class="wall" id="d-wall"></div>
+        <div class="glow"></div>
+        <img class="gun" id="d-gun" alt="">
+      </div>
+      <div class="detail-info">
+        <h2 id="d-name">—</h2>
+        <div class="cn2" id="d-cn">—</div>
+        <div class="vrow" id="d-variants"></div>
+        <div class="meta-grid">
+          <div class="mi">品质 <b><span class="tierbadge" id="d-tier">—</span></b></div>
+          <div class="mi">系列 <b id="d-theme">—</b></div>
+          <div class="mi">配色变体 <b id="d-vcount">—</b></div>
+          <div class="mi">武器 <b id="d-wpn">—</b></div>
+        </div>
+        <div class="lvlist" id="d-levels"></div>
+        <div class="detail-actions">
+          <button class="btn primary" id="d-equip" style="flex:1">装备到暴徒</button>
+          <button class="btn" id="d-inspect">检视</button>
+          <button class="btn ghost" id="d-fav">★</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 检视模式 -->
+    <div class="inspect hidden" id="inspect">
+      <canvas id="inspectCanvas"></canvas>
+      <div class="vstrip" id="i-variants"></div>
+      <div class="inspect-bar">
+        <div>
+          <div class="nm" id="i-name">—</div>
+          <div class="sub" id="i-sub">—</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn small" id="i-level">升级特效</button>
+          <button class="btn small primary" id="i-equip">装备</button>
+          <button class="btn small ghost" id="i-close">✕</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 设置 ===================== -->
+  <div id="settings" class="screen hidden">
+    <div class="set-head">
+      <div class="col-title">设<em>置</em></div>
+      <div style="flex:1"></div>
+      <button class="btn small" id="setBack">返回</button>
+    </div>
+    <div class="set-body">
+      <div class="set-group">
+        <h3>操作</h3>
+        <div class="set-row"><label>视角灵敏度</label><span class="val" id="v-sens">1.00</span><input type="range" id="s-sens" min="0.2" max="3" step="0.05" value="1"></div>
+        <div class="set-row"><label>开镜灵敏度倍率</label><span class="val" id="v-adssens">0.80</span><input type="range" id="s-adssens" min="0.2" max="1.5" step="0.05" value="0.8"></div>
+        <div class="set-row"><label>左手摇杆移动</label><div class="switch on" id="s-lefty"></div></div>
+        <div class="set-row"><label>自动开火（按住瞄准即射击）</label><div class="switch" id="s-autofire"></div></div>
+        <div class="set-row"><label>开火键跟随（右侧任意位置按住即射）</label><div class="switch on" id="s-fireanywhere"></div></div>
+      </div>
+      <div class="set-group">
+        <h3>准星</h3>
+        <div class="set-row"><label>准星颜色</label>
+          <div class="seg" id="s-chcolor">
+            <button data-v="#34f5a8" class="on" style="color:#34f5a8">绿</button>
+            <button data-v="#ffffff" style="color:#fff">白</button>
+            <button data-v="#ff4655" style="color:#ff4655">红</button>
+            <button data-v="#22d3b8" style="color:#22d3b8">青</button>
+            <button data-v="#ffd166" style="color:#ffd166">黄</button>
+          </div>
+        </div>
+        <div class="set-row"><label>准星间隙</label><span class="val" id="v-gap">4</span><input type="range" id="s-gap" min="0" max="14" step="1" value="4"></div>
+        <div class="set-row"><label>准星长度</label><span class="val" id="v-len">6</span><input type="range" id="s-len" min="0" max="16" step="1" value="6"></div>
+        <div class="set-row"><label>中心点</label><div class="switch on" id="s-dot"></div></div>
+        <div class="set-row"><label>命中显示伤害数字</label><div class="switch on" id="s-dmgnum"></div></div>
+      </div>
+      <div class="set-group">
+        <h3>画面与声音</h3>
+        <div class="set-row"><label>画质</label>
+          <div class="seg" id="s-quality">
+            <button data-v="0.6">流畅</button><button data-v="0.8" class="on">均衡</button><button data-v="1">高清</button>
+          </div>
+        </div>
+        <div class="set-row"><label>视野 FOV</label><span class="val" id="v-fov">75</span><input type="range" id="s-fov" min="60" max="100" step="1" value="75"></div>
+        <div class="set-row"><label>音量</label><span class="val" id="v-vol">70</span><input type="range" id="s-vol" min="0" max="100" step="5" value="70"></div>
+        <div class="set-row"><label>击杀自动换皮肤（轮播）</label><div class="switch" id="s-rotate"></div></div>
+        <div class="set-row"><label>小地图</label><div class="switch on" id="s-minimap"></div></div>
+        <div class="set-row"><label>显示 FPS</label><div class="switch" id="s-fps"></div></div>
+      </div>
+      <div class="set-group">
+        <h3>数据</h3>
+        <div class="set-row"><label>清空历史战绩</label><button class="btn small ghost" id="resetStats">清空</button></div>
+        <div class="set-row"><label>恢复默认设置</label><button class="btn small ghost" id="resetSet">恢复</button></div>
+        <div style="font-size:11.5px;color:#8b979e;line-height:1.7;padding-top:6px">
+          本地武器数据：暴徒 Vandal（AK）· 幻影 Phantom（M4），含全部官方皮肤与配色变体。<br>
+          地图：莲花古城 LOTUS（A / B / C 三个包点 + 中路 + 旋转门）。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 游戏 ===================== -->
+  <div id="game" class="screen hidden">
+    <canvas id="view"></canvas>
+    <canvas id="gun"></canvas>
+
+    <div id="hud">
+      <div class="hud-el" id="crosshair">
+        <i class="ch-l"></i><i class="ch-r"></i><i class="ch-t"></i><i class="ch-b"></i><i class="ch-dot"></i>
+      </div>
+      <div class="hud-el" id="hitmark"><i class="h0"></i><i class="h1"></i><i class="h2"></i><i class="h3"></i></div>
+      <div class="hud-el" id="dmgwrap"></div>
+      <div class="hud-el" id="flash"></div>
+      <div class="hud-el" id="hurt"></div>
+      <div class="hud-el" id="scope-vig"></div>
+
+      <div class="hud-el" id="minimap">
+        <canvas id="mmcanvas" width="244" height="244"></canvas>
+        <div class="mmode" id="mm-mode">莲花古城 · LOTUS</div>
+      </div>
+
+      <div class="hud-el" id="topbar">
+        <div class="sb" id="timer"><b>0:00</b><span>TIME</span></div>
+        <div class="sep"></div>
+        <div class="sb"><b id="sb-score">0</b><span>SCORE</span></div>
+        <div class="sep"></div>
+        <div class="sb"><b id="sb-kills">0</b><span>KILLS</span></div>
+        <div class="sep"></div>
+        <div class="obj" id="sb-obj">清空 BOT</div>
+      </div>
+
+      <div class="hud-el" id="killfeed"></div>
+
+      <div class="hud-el" id="vitals">
+        <div>
+          <div class="hp"><b id="hp">100</b><span>HP</span></div>
+          <div class="hpbar" id="hpbar"><i></i></div>
+        </div>
+        <div class="armor">🛡 <span id="armor">0</span></div>
+      </div>
+
+      <div class="hud-el" id="guninfo">
+        <div class="ammo"><b id="ammo">25</b><span id="ammomax">/ 75</span></div>
+        <div class="reloading hidden" id="reloading">换弹中…</div>
+        <div class="wname" id="hud-wpn">暴徒 VANDAL</div>
+        <div class="sk" id="hud-skin">默认 · 暴徒</div>
+      </div>
+
+      <div class="hud-el" id="toast"></div>
+      <div class="hud-el" id="fps" style="display:none">60 FPS</div>
+      <button class="hud-el" id="pausebtn" style="pointer-events:auto">⏸ 暂停</button>
+    </div>
+
+    <div id="controls">
+      <div id="joybase"><div id="joyknob"></div></div>
+      <div id="lookzone"></div>
+      <div class="gbtn" id="btnFire"><span><span class="k">🔥</span><span class="t">开火</span></span></div>
+      <div class="gbtn" id="btnReload"><span><span class="k">⟳</span><span class="t">换弹</span></span></div>
+      <div class="gbtn" id="btnADS"><span><span class="k">🎯</span><span class="t">开镜</span></span></div>
+      <div class="gbtn" id="btnJump"><span><span class="k">⤒</span><span class="t">跳</span></span></div>
+      <div class="gbtn" id="btnCrouch"><span><span class="k">⤓</span><span class="t">蹲</span></span></div>
+      <div class="gbtn" id="btnSwap"><span><span class="k">⇄</span><span class="t">换枪</span></span></div>
+      <div class="gbtn" id="btnCollect"><span><span class="k">🎨</span><span class="t">皮肤</span></span></div>
+    </div>
+
+    <div class="overlay hidden" id="pause">
+      <div class="dialog">
+        <h2>暂 停</h2>
+        <div class="sub">LOTUS · 莲花古城</div>
+        <div class="stats">
+          <div class="st"><b id="p-kills">0</b><span>击杀</span></div>
+          <div class="st"><b id="p-hs">0%</b><span>爆头率</span></div>
+          <div class="st"><b id="p-acc">0%</b><span>命中率</span></div>
+        </div>
+        <div class="actions">
+          <button class="btn primary" id="pResume">继续游戏</button>
+          <button class="btn" id="pCollection">换皮肤</button>
+        </div>
+        <div class="actions" style="margin-top:8px">
+          <button class="btn ghost" id="pRestart">重新开始</button>
+          <button class="btn ghost" id="pQuit">返回主菜单</button>
+        </div>
+        <div class="hr"></div>
+        <div class="set-row"><label>音量</label><input type="range" id="p-vol" min="0" max="100" step="5" value="70"></div>
+        <div class="set-row"><label>灵敏度</label><input type="range" id="p-sens" min="0.2" max="3" step="0.05" value="1"></div>
+      </div>
+    </div>
+
+    <div class="overlay hidden" id="result">
+      <div class="dialog">
+        <h2 id="r-title" class="win">清 场 完 成</h2>
+        <div class="sub" id="r-sub">莲花古城 · 死斗</div>
+        <div class="stats">
+          <div class="st"><b id="r-kills">0</b><span>击杀</span></div>
+          <div class="st"><b id="r-hs">0</b><span>爆头</span></div>
+          <div class="st"><b id="r-hsp">0%</b><span>爆头率</span></div>
+          <div class="st"><b id="r-acc">0%</b><span>命中率</span></div>
+          <div class="st"><b id="r-dmg">0</b><span>总伤害</span></div>
+          <div class="st"><b id="r-time">0:00</b><span>用时</span></div>
+        </div>
+        <div class="actions">
+          <button class="btn primary" id="rAgain">再来一局</button>
+          <button class="btn" id="rCollection">换皮肤再战</button>
+        </div>
+        <div class="actions" style="margin-top:8px">
+          <button class="btn ghost" id="rMenu">返回主菜单</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="rotate-hint">
+    <div class="ic">📱</div>
+    <div style="font-size:15px;font-weight:700;letter-spacing:.1em">请横屏游玩</div>
+    <div style="font-size:12px;color:#8b979e">横屏才能获得完整的射击视野</div>
+  </div>
+</div>
+
+<script src="js/skins-data.js"></script>
+<script src="js/map.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/viewmodel.js"></script>
+<script src="js/bots.js"></script>
+<script src="js/game.js"></script>
+<script src="js/collection.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

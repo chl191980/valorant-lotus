@@ -1,0 +1,69 @@
+/* ============================================================
+   藏品库（皮肤收藏）专用样式
+   ============================================================ */
+
+/* 滚动条 */
+.grid::-webkit-scrollbar, .col-side::-webkit-scrollbar, .detail-info::-webkit-scrollbar, .set-body::-webkit-scrollbar, .dialog::-webkit-scrollbar { width: 6px; height: 6px; }
+.grid::-webkit-scrollbar-thumb, .col-side::-webkit-scrollbar-thumb, .detail-info::-webkit-scrollbar-thumb, .set-body::-webkit-scrollbar-thumb, .dialog::-webkit-scrollbar-thumb { background: rgba(255, 70, 85, .5); border-radius: 3px; }
+.grid::-webkit-scrollbar-track { background: rgba(255, 255, 255, .05); }
+
+/* 侧栏 */
+.side-block { margin-bottom: 14px; }
+.side-block h4 { font-size: 11px; letter-spacing: .22em; color: var(--v-mute); text-transform: uppercase; margin-bottom: 7px; }
+.side-stat { display: flex; justify-content: space-between; font-size: 12px; padding: 4px 0; border-bottom: 1px dashed rgba(255, 255, 255, .06); }
+.side-stat b { color: var(--v-gold); font-weight: 700; }
+.legend { display: grid; gap: 4px; }
+.legend .lg { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--v-mute); }
+.legend .lg i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+
+/* 筛选按钮组 */
+.fbtn {
+  flex: 0 0 auto; padding: .34em .8em; font-size: 12px; font-weight: 600;
+  border: 1px solid var(--v-line); border-radius: 2px; color: var(--v-mute);
+  background: rgba(255, 255, 255, .03); transition: .14s;
+}
+.fbtn.on { color: #fff; border-color: var(--v-gold); background: rgba(240, 198, 116, .14); }
+
+/* 卡片悬停/动效（桌面） */
+@media (hover: hover) {
+  .card:hover { border-color: rgba(236, 232, 225, .4); transform: translateY(-2px); }
+  .card:hover .thumb img { transform: scale(1.05); }
+  .card .thumb img { transition: transform .25s ease; }
+  .vdot:hover { border-color: var(--v-gold); }
+}
+
+/* 卡片稀有度条 */
+.card .tierbar { height: 3px; width: 100%; }
+.card { --tier: #5a9fe2; }
+.card .tierbar { background: linear-gradient(90deg, var(--tier), rgba(255, 255, 255, .05)); }
+
+/* 载入占位 */
+.card.skeleton { pointer-events: none; }
+.card.skeleton .thumb, .card.skeleton .meta { background: linear-gradient(100deg, rgba(255,255,255,.05) 30%, rgba(255,255,255,.12) 50%, rgba(255,255,255,.05) 70%); background-size: 200% 100%; animation: sk 1.2s linear infinite; }
+@keyframes sk { from { background-position: 200% 0 } to { background-position: -200% 0 } }
+
+/* 顶部说明 */
+.col-hero {
+  display: flex; align-items: center; gap: 10px; padding: 10px 12px 0;
+}
+.col-hero .big { font-size: 26px; font-weight: 900; letter-spacing: .1em; transform: skewX(-6deg); }
+.col-hero .desc { font-size: 11.5px; color: var(--v-mute); line-height: 1.5; }
+
+/* 空状态 */
+.empty { padding: 40px 16px; text-align: center; color: var(--v-mute); font-size: 13px; grid-column: 1 / -1; }
+.empty .ic { display: block; font-size: 34px; margin-bottom: 8px; opacity: .6; }
+
+/* 详情页信息行 */
+.meta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 12px; margin-top: 10px; }
+.meta-grid .mi { font-size: 11.5px; color: var(--v-mute); }
+.meta-grid .mi b { color: var(--v-white); font-weight: 600; display: block; font-size: 13px; }
+.tierbadge { display: inline-block; padding: .16em .5em; border-radius: 2px; font-size: 10.5px; font-weight: 800; color: #06121a; letter-spacing: .06em; }
+.favline { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.favline .pill { font-size: 11px; color: var(--v-mute); border: 1px solid var(--v-line); border-radius: 999px; padding: .18em .7em; }
+
+/* 检视页变体条 */
+.inspect .vstrip { display: flex; gap: 8px; padding: 8px 12px 0; overflow-x: auto; }
+.inspect .vstrip::-webkit-scrollbar { display: none; }
+
+/* 搜索清除 */
+.col-search .clr { color: var(--v-mute); font-size: 13px; padding: 0 3px; }
